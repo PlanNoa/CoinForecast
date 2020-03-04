@@ -13,13 +13,13 @@ get data from upbit [api](https://crix-api.upbit.com/v1/crix/candles/minutes/60?
 
 ### Instructions
 
-**Training on new data**
+**Training on new data:**
 
 `python trainmodel.py --log "yourcoinlog" --resume_train "pretrainedmodelpath"`
 
 To see predict value difference while training, just add `--vis True` to the line above.
 
-**Running**
+**Running:**
 
 `python testmodel.py --log "yourcoinlog" --model "yourmodelpath" `
 

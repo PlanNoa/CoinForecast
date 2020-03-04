@@ -21,7 +21,7 @@ To see predict value difference while training, just add `--vis True` to the lin
 `python testmodel.py --log "yourcoinlog" --model "yourmodelpath" `
 To see predict value difference, just add `--vis True` to the line above.
 
-**Working example with [pretrained model](https://github.com/PlanNoa/CoinForecast/blob/master/pretrained model/ripplemodel)**
+**Working example with [pretrained model](https://github.com/PlanNoa/CoinForecast/blob/master/pretrained%20model/ripplemodel)**
 (Blue:Real values,Orange:Predicted)
 
 ![ripple predict](https://github.com/PlanNoa/CoinForecast/blob/master/pretrained%20model/ripplemodel.png)

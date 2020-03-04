@@ -24,5 +24,5 @@ To see predict value difference, just add `--vis True` to the line above.
 **Working example with [pretrained model](https://github.com/PlanNoa/CoinForecast/blob/master/pretrained model/ripplemodel)**
 (Blue:Real values,Orange:Predicted)
 
-![ripple predict](https://github.com/PlanNoa/CoinForecast/blob/master/pretrained model/ripplemodel.png)
+![ripple predict](https://github.com/PlanNoa/CoinForecast/blob/master/pretrained%20model/ripplemodel.png)
 

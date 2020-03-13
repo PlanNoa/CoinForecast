@@ -1,4 +1,6 @@
-from torch.nn import Module, GRU, Linear, Dropout, Tanh
+from torch.nn import Module, GRU, Linear, Dropout, Tanh, MSELoss
+import torch
+import numpy as np
 
 class coinmodel(Module):
     def __init__(self):
@@ -45,3 +47,35 @@ class coinmodel_test(Module):
         x = self.linear2(x)
         x = Tanh()(x)
         return x
+
+class lossfuncs:
+    def __init__(self, init_value=100):
+        self.init_value = init_value
+        self.mseloss = MSELoss()
+        return
+
+    def stage_1(self, out, y):
+        loss = self.mseloss(out, y)
+        return loss
+
+    def stage_2(self, out, y):
+        loss = self.mseloss(out, y)
+        labelprice = [self.init_value]
+        outputprice = [self.init_value]
+        for i, j in zip(y.flatten(), out.flatten()):
+            labelprice.append((1 + j) * labelprice[-1])
+            outputprice.append((1 + i) * outputprice[-1])
+        labelprice = torch.Tensor(labelprice)
+        outputprice = torch.Tensor(outputprice)
+        loss.data = self.mseloss(outputprice, labelprice)
+        return loss
+
+    def stage_3(self, out, y):
+        loss = self.mseloss(out, y)
+        labelprice = [self.init_value]
+        outputprice = [self.init_value]
+        for i, j in zip(y.flatten(), out.flatten()):
+            labelprice.append((1 + j) * labelprice[-1])
+            outputprice.append((1 + i) * outputprice[-1])
+        loss.data = torch.tensor(max(np.abs(np.array(labelprice) - np.array(outputprice))))
+        return loss

@@ -32,7 +32,7 @@ class rippleDataset(data.Dataset):
     def parsedata(self):
         self.data = []
         self.label = []
-        for n in range(30, 400):
+        for n in range(30, 100):
             for i in range(n, len(self.rawdata)-1):
                 self.data.append(self.rawdata[i-n:i])
                 self.label.append(self.rawlabel[i-n+1:i+1])

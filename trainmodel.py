@@ -91,7 +91,7 @@ def main():
 
         if pbar.n % 1000 == 0:
             modelpath = os.path.join('model/ripplemodel_stage{}_iter{}'.format(stage, pbar.n))
-            torch.save({'stage': 1,
+            torch.save({'stage': stage,
                         'model_state_dict': model.state_dict(),
                         'iter':pbar.n},
                        modelpath)
@@ -123,7 +123,7 @@ def main():
 
         if pbar.n % 1000 == 0:
             modelpath = os.path.join('model/ripplemodel_stage{}_iter{}'.format(stage, pbar.n))
-            torch.save({'stage': 1,
+            torch.save({'stage': stage,
                         'model_state_dict': model.state_dict(),
                         'iter':pbar.n},
                        modelpath)

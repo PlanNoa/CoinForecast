@@ -24,8 +24,7 @@ def parse_args():
 def main():
 
     args = parse_args()
-    # model = torch.load(args.modelpath)
-    model = torch.load('model/ripplemodel_stage1_iter8000')
+    model = torch.load(args.modelpath)
 
     ripplemodel = coinmodel_test()
     ripplemodel.load_state_dict(model['model_state_dict'])

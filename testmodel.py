@@ -24,7 +24,8 @@ def parse_args():
 def main():
 
     args = parse_args()
-    model = torch.load(args.modelpath)
+    # model = torch.load(args.modelpath)
+    model = torch.load('model/ripplemodel_stage1_iter8000')
 
     ripplemodel = coinmodel_test()
     ripplemodel.load_state_dict(model['model_state_dict'])
@@ -53,7 +54,7 @@ def main():
         import matplotlib.pyplot as plt
         plt.plot(label)
         plt.plot(pred)
-        plt.savefig(args.modelpath+'.png')
+        # plt.savefig(args.modelpath+'.png')
         plt.show()
 
 if __name__=='__main__':

@@ -48,21 +48,29 @@ def main():
     optimizer = Adam(model.parameters(), lr=0.01)
 
     pbar = tqdm(total=len(traindata), leave=False)
-    for x, y in traindata:
-        out = model(x)
-        optimizer.zero_grad()
-        loss = lossfunc(out, y)*100
-        loss.backward()
-        optimizer.step()
-        pbar.set_description('iter {} | train loss: %.5f, len: {}'.format(pbar.n, x.shape) % (loss))
-        pbar.update()
+    losses = []
+    for epoch in range(5):
+        for x, y in traindata:
+            out = model(x)
+            optimizer.zero_grad()
+            loss = lossfunc(out, y)
+            losses.append(loss)
+            if len(losses) == 5:
+                loss.data = torch.mean(torch.tensor(losses))
+                loss.backward()
+                optimizer.step()
+                pbar.set_description('stage {} epoch {} iter {} | train loss: %.5f, len: {}'.format(stage, epoch, pbar.n, x.shape) % (loss))
+                pbar.update()
 
-        if pbar.n % 1000 == 0:
-            modelpath = os.path.join('model/ripplemodel_stage{}_iter{}'.format(stage, pbar.n))
-            torch.save({'stage': 1,
-                        'model_state_dict': model.state_dict(),
-                        'iter':pbar.n},
-                       modelpath)
+                if pbar.n % 1000 == 0:
+                    modelpath = os.path.join('model/ripplemodel_stage{}_epoch{}_iter{}'.format(stage, epoch, pbar.n))
+                    torch.save({'stage': stage,
+                                'model_state_dict': model.state_dict(),
+                                'iter':pbar.n},
+                               modelpath)
+
+                losses = []
+
     stage += 1
 
     pbar.close()
@@ -76,25 +84,33 @@ def main():
     print('Stage 2: Training Real Value')
     print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 
-    lossfunc = lossfuncs.stage_1
+    lossfunc = lossfuncs.stage_2
     optimizer = Adam(model.parameters(), lr=0.01)
 
     pbar = tqdm(total=len(traindata), leave=False)
-    for x, y in traindata:
-        out = model(x)
-        optimizer.zero_grad()
-        loss = lossfunc(out, y)
-        loss.backward()
-        optimizer.step()
-        pbar.set_description('iter {} | train loss: %.5f, len: {}'.format(pbar.n, x.shape) % (loss))
-        pbar.update()
+    losses = []
+    for epoch in range(5):
+        for x, y in traindata:
+            out = model(x)
+            optimizer.zero_grad()
+            loss = lossfunc(out, y)*100
+            losses.append(loss)
+            if len(losses) == 5:
+                loss.data = torch.mean(torch.tensor(losses))
+                loss.backward()
+                optimizer.step()
+                pbar.set_description('stage {} epoch {} iter {} | train loss: %.5f, len: {}'.format(stage, epoch, pbar.n, x.shape) % (loss))
+                pbar.update()
 
-        if pbar.n % 1000 == 0:
-            modelpath = os.path.join('model/ripplemodel_stage{}_iter{}'.format(stage, pbar.n))
-            torch.save({'stage': stage,
-                        'model_state_dict': model.state_dict(),
-                        'iter':pbar.n},
-                       modelpath)
+                if pbar.n % 1000 == 0:
+                    modelpath = os.path.join('model/ripplemodel_stage{}_epoch{}_iter{}'.format(stage, epoch, pbar.n))
+                    torch.save({'stage': stage,
+                                'model_state_dict': model.state_dict(),
+                                'iter':pbar.n},
+                               modelpath)
+
+                losses = []
+
     stage += 1
 
     pbar.close()
@@ -112,21 +128,28 @@ def main():
     optimizer = Adam(model.parameters(), lr=0.01)
 
     pbar = tqdm(total=len(traindata), leave=False)
-    for x, y in traindata:
-        out = model(x)
-        optimizer.zero_grad()
-        loss = lossfunc(out, y)
-        loss.backward()
-        optimizer.step()
-        pbar.set_description('iter {} | train loss: %.5f, len: {}'.format(pbar.n, x.shape) % (loss))
-        pbar.update()
+    losses = []
+    for epoch in range(5):
+        for x, y in traindata:
+            out = model(x)
+            optimizer.zero_grad()
+            loss = lossfunc(out, y)*100
+            losses.append(loss)
+            if len(losses) == 5:
+                loss.data = torch.mean(torch.tensor(losses))
+                loss.backward()
+                optimizer.step()
+                pbar.set_description('stage {} eoch {} iter {} | train loss: %.5f, len: {}'.format(stage, epoch, pbar.n, x.shape) % (loss))
+                pbar.update()
 
-        if pbar.n % 1000 == 0:
-            modelpath = os.path.join('model/ripplemodel_stage{}_iter{}'.format(stage, pbar.n))
-            torch.save({'stage': stage,
-                        'model_state_dict': model.state_dict(),
-                        'iter':pbar.n},
-                       modelpath)
+                if pbar.n % 1000 == 0:
+                    modelpath = os.path.join('model/ripplemodel_stage{}_epoch{}_iter{}'.format(stage, epoch, pbar.n))
+                    torch.save({'stage': stage,
+                                'model_state_dict': model.state_dict(),
+                                'iter':pbar.n},
+                               modelpath)
+
+                losses = []
 
     pbar.close()
     modelpath = os.path.join('model/ripplemodel_final')

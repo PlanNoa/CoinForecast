@@ -53,7 +53,7 @@ def main():
         import matplotlib.pyplot as plt
         plt.plot(label)
         plt.plot(pred)
-        # plt.savefig(args.modelpath+'.png')
+        plt.savefig(args.modelpath+'.png')
         plt.show()
 
 if __name__=='__main__':

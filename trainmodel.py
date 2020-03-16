@@ -47,7 +47,7 @@ def main():
     lossfunc = lossfuncs.stage_1
     optimizer = Adam(model.parameters(), lr=0.01)
 
-    pbar = tqdm(total=len(traindata), leave=False)
+    pbar = tqdm(total=len(traindata)/4, leave=False)
     losses = []
     for epoch in range(5):
         for x, y in traindata:
@@ -55,7 +55,7 @@ def main():
             optimizer.zero_grad()
             loss = lossfunc(out, y)
             losses.append(loss)
-            if len(losses) == 5:
+            if len(losses) == 20:
                 loss.data = torch.mean(torch.tensor(losses))
                 loss.backward()
                 optimizer.step()
@@ -87,7 +87,7 @@ def main():
     lossfunc = lossfuncs.stage_2
     optimizer = Adam(model.parameters(), lr=0.01)
 
-    pbar = tqdm(total=len(traindata), leave=False)
+    pbar = tqdm(total=len(traindata)/4, leave=False)
     losses = []
     for epoch in range(5):
         for x, y in traindata:
@@ -95,7 +95,7 @@ def main():
             optimizer.zero_grad()
             loss = lossfunc(out, y)*100
             losses.append(loss)
-            if len(losses) == 5:
+            if len(losses) == 20:
                 loss.data = torch.mean(torch.tensor(losses))
                 loss.backward()
                 optimizer.step()
@@ -127,7 +127,7 @@ def main():
     lossfunc = lossfuncs.stage_3
     optimizer = Adam(model.parameters(), lr=0.01)
 
-    pbar = tqdm(total=len(traindata), leave=False)
+    pbar = tqdm(total=len(traindata)/4, leave=False)
     losses = []
     for epoch in range(5):
         for x, y in traindata:
@@ -135,7 +135,7 @@ def main():
             optimizer.zero_grad()
             loss = lossfunc(out, y)*100
             losses.append(loss)
-            if len(losses) == 5:
+            if len(losses) == 20:
                 loss.data = torch.mean(torch.tensor(losses))
                 loss.backward()
                 optimizer.step()

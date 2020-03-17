@@ -55,7 +55,7 @@ class lossfuncs:
         return
 
     def stage_1(self, out, y):
-        loss = self.mseloss(out*100, y*100)
+        loss = self.mseloss(out*1000, y*1000)
         return loss
 
     def stage_2(self, out, y):

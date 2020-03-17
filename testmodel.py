@@ -31,30 +31,31 @@ def main():
 
     with open(args.logpath, "r") as json_file:
         rawdata = json.load(json_file)
-    data = [[(rawdata[log]['openingPrice']-rawdata[log+1]['openingPrice'])/rawdata[log+1]['openingPrice'],
-             (rawdata[log]['highPrice'] - rawdata[log+1]['highPrice']) / rawdata[log+1]['highPrice'],
-             (rawdata[log]['lowPrice'] - rawdata[log+1]['lowPrice']) / rawdata[log+1]['lowPrice'],
-             (rawdata[log]['tradePrice'] - rawdata[log+1]['tradePrice']) / rawdata[log+1]['tradePrice'],
-             (rawdata[log]['candleAccTradeVolume'] - rawdata[log+1]['candleAccTradeVolume']) / rawdata[log+1][
+    data = [[(rawdata[log]['openingPrice'] - rawdata[log + 1]['openingPrice']) / rawdata[log + 1]['openingPrice'],
+             (rawdata[log]['highPrice'] - rawdata[log + 1]['highPrice']) / rawdata[log + 1]['highPrice'],
+             (rawdata[log]['lowPrice'] - rawdata[log + 1]['lowPrice']) / rawdata[log + 1]['lowPrice'],
+             (rawdata[log]['tradePrice'] - rawdata[log + 1]['tradePrice']) / rawdata[log + 1]['tradePrice'],
+             (rawdata[log]['candleAccTradeVolume'] - rawdata[log + 1]['candleAccTradeVolume']) / rawdata[log + 1][
                  'candleAccTradeVolume'],
-             (rawdata[log]['candleAccTradePrice'] - rawdata[log+1]['candleAccTradePrice']) / rawdata[log+1][
-                 'candleAccTradePrice']] for log in range(len(rawdata)-2, -1, -1)]
+             (rawdata[log]['candleAccTradePrice'] - rawdata[log + 1]['candleAccTradePrice']) / rawdata[log + 1][
+                 'candleAccTradePrice']] for log in range(len(rawdata) - 2, -1, -1)]
 
     data = torch.Tensor([data])
     output = ripplemodel(data)
-    label = [317]
-    pred = [317, 315]
+    label = [319]
+    pred = [319, 318]
     for i, j in zip(data[0], output[0]):
-        label.append(label[-1]*(1+i[2].item()))
-        pred.append(pred[-1]*(1+j.item()))
+        label.append(label[-1] * (1 + i[2].item()))
+        # pred.append(label[-2] * (1 + j.item()))
+        pred.append(pred[-1][-2] * (1 + j.item()))
     label.append(pred[-1])
 
     if args.vis:
         import matplotlib.pyplot as plt
         plt.plot(label)
         plt.plot(pred)
-        plt.savefig(args.modelpath+'.png')
+        plt.savefig(args.modelpath.split('/')[-1] + '.png')
         plt.show()
 
-if __name__=='__main__':
+if __name__ == '__main__':
     main()

@@ -19,7 +19,7 @@ class rippleDataset(data.Dataset):
                                  (rawdata[log]['tradePrice']-rawdata[log-1]['tradePrice'])/rawdata[log-1]['tradePrice'],
                                  (rawdata[log]['candleAccTradeVolume']-rawdata[log-1]['candleAccTradeVolume'])/rawdata[log-1]['candleAccTradeVolume'],
                                  (rawdata[log]['candleAccTradePrice']-rawdata[log-1]['candleAccTradePrice'])/rawdata[log-1]['candleAccTradePrice']])
-            self.rawlabel.append([(rawdata[log]['lowPrice']-rawdata[log-1]['lowPrice'])/rawdata[log-1]['lowPrice']])
+            self.rawlabel.append([(rawdata[log]['tradePrice']-rawdata[log-1]['tradePrice'])/rawdata[log-1]['tradePrice']])
         self.rawdata = list(reversed(self.rawdata))
         self.rawlabel = list(reversed(self.rawlabel))
 

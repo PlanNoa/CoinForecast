@@ -47,14 +47,14 @@ def main():
     for i, j in zip(data[0], output[0]):
         label.append(label[-1] * (1 + i[2].item()))
         # pred.append(label[-2] * (1 + j.item()))
-        pred.append(pred[-1][-2] * (1 + j.item()))
+        pred.append(pred[-1] * (1 + j.item()))
     label.append(pred[-1])
 
     if args.vis:
         import matplotlib.pyplot as plt
         plt.plot(label)
         plt.plot(pred)
-        plt.savefig(args.modelpath.split('/')[-1] + '.png')
+        plt.savefig(args.modelpath + '.png')
         plt.show()
 
 if __name__ == '__main__':
